@@ -1,23 +1,16 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, model, signal } from '@angular/core';
 import { Panier, Produit } from '../models/panier';
-import { Catalogue } from '../catalogue/catalogue';
 
 @Component({
   selector: 'app-panier',
-  imports: [Catalogue],
+  imports: [],
   templateUrl: './panier.html',
   styleUrl: './panier.css',
 })
 export class PanierComponent {
-  // Le panier courant. On remplace la valeur du signal à chaque modification
-  // pour que l'interface se mette à jour automatiquement.
-  panier = signal(
-    new Panier([
-      { id: 1, nom: 'Clavier', prix: 50, quantite: 2 },
-      { id: 2, nom: 'Souris', prix: 20, quantite: 3 },
-      { id: 3, nom: 'Écran', prix: 200, quantite: 1 },
-    ]),
-  );
+  // Le panier vient du parent (Store) via une liaison deux sens :
+  // <app-panier [(panier)]="panier" />
+  panier = model.required<Panier>();
 
   // Champs du formulaire d'ajout (signaux liés aux inputs).
   nouveauNom = signal('');
@@ -28,11 +21,6 @@ export class PanierComponent {
   peutAjouter = computed(
     () => this.nouveauNom().trim() !== '' && Number(this.nouveauPrix()) > 0,
   );
-
-  /** Appelé quand on clique sur "Ajouter au panier" dans le catalogue. */
-  ajouterProduit(produit: Produit) {
-    this.modifier((panier) => panier.ajouter({ ...produit, quantite: 1 }));
-  }
 
   ajouter() {
     if (!this.peutAjouter()) {

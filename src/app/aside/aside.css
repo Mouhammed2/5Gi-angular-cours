@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.aside {
+  min-height: 260px;
+  border: 1px dashed #d0d5dd;
+  border-radius: 12px;
+  background: #fafbfc;
+}

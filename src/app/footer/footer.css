@@ -1,0 +1,19 @@
+.footer {
+  margin-top: 2rem;
+  padding: 1.25rem 1rem;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.footer p {
+  margin: 0.15rem 0;
+}
+
+.liens {
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}

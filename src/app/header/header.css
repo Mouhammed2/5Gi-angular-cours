@@ -1,0 +1,34 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #1f2430;
+}
+
+h2 {
+  margin: 0;
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #d0d5dd;
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+button:hover:not(:disabled) {
+  background: #eceff5;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

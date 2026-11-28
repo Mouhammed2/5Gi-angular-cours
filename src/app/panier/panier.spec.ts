@@ -1,10 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PanierComponent } from './panier';
+import { Panier } from '../models/panier';
 
 describe('PanierComponent', () => {
   let component: PanierComponent;
   let fixture: ComponentFixture<PanierComponent>;
+
+  const panierInitial = () =>
+    new Panier([
+      { id: 1, nom: 'Clavier', prix: 50, quantite: 2 },
+      { id: 2, nom: 'Souris', prix: 20, quantite: 3 },
+      { id: 3, nom: 'Écran', prix: 200, quantite: 1 },
+    ]);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -12,6 +20,7 @@ describe('PanierComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(PanierComponent);
+    fixture.componentRef.setInput('panier', panierInitial());
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -34,31 +43,6 @@ describe('PanierComponent', () => {
     expect(component.panier().total()).toBe(560);
   });
 
-  it('ajouterProduit() should merge with an existing cart line', () => {
-    component.ajouterProduit({ id: 1, nom: 'Clavier', prix: 50, quantite: 1 });
-
-    expect(component.panier().nombreProduits()).toBe(3);
-    expect(component.panier().quantiteDe(1)).toBe(3);
-    expect(component.panier().total()).toBe(410);
-  });
-
-  it('ajouterProduit() should add a product coming from the catalogue', () => {
-    component.ajouterProduit({ id: 6, nom: 'Clé USB', prix: 15, quantite: 1 });
-
-    expect(component.panier().nombreProduits()).toBe(4);
-    expect(component.panier().total()).toBe(375);
-  });
-
-  it('should give a free id to manually typed products', () => {
-    component.nouveauNom.set('Produit maison');
-    component.nouveauPrix.set('10');
-    component.ajouter();
-
-    const dernier = component.panier().produits.at(-1);
-    expect(dernier?.id).toBe(4);
-    expect(component.panier().nombreProduits()).toBe(4);
-  });
-
   it('should clear the form after adding', () => {
     component.nouveauNom.set('Casque');
     component.nouveauPrix.set('100');
@@ -75,6 +59,16 @@ describe('PanierComponent', () => {
     component.ajouter();
 
     expect(component.panier().nombreProduits()).toBe(3);
+  });
+
+  it('should give a free id to manually typed products', () => {
+    component.nouveauNom.set('Produit maison');
+    component.nouveauPrix.set('10');
+    component.ajouter();
+
+    const dernier = component.panier().produits.at(-1);
+    expect(dernier?.id).toBe(4);
+    expect(component.panier().nombreProduits()).toBe(4);
   });
 
   it('augmenter() should increase the quantity', () => {
