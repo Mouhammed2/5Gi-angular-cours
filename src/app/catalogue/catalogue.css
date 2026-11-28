@@ -1,0 +1,76 @@
+.catalogue {
+  max-width: 780px;
+  margin: 1.5rem auto 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #1f2430;
+}
+
+.catalogue h2 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.9rem;
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1rem 0.75rem;
+  border: 1px solid #eceef2;
+  border-radius: 12px;
+  background: #fafbfc;
+  text-align: center;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.carte:hover {
+  border-color: #c9d6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 124, 255, 0.12);
+}
+
+.emoji {
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.carte h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.prix {
+  margin: 0;
+  color: #2b4bd8;
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.btn-ajouter {
+  margin-top: 0.35rem;
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid #4f7cff;
+  background: #4f7cff;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.btn-ajouter:hover {
+  background: #3d67e0;
+}

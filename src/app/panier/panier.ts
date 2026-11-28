@@ -1,9 +1,10 @@
 import { Component, computed, signal } from '@angular/core';
 import { Panier, Produit } from '../models/panier';
+import { Catalogue } from '../catalogue/catalogue';
 
 @Component({
   selector: 'app-panier',
-  imports: [],
+  imports: [Catalogue],
   templateUrl: './panier.html',
   styleUrl: './panier.css',
 })
@@ -23,12 +24,15 @@ export class PanierComponent {
   nouveauPrix = signal('');
   nouvelleQuantite = signal('1');
 
-  private nextId = 4;
-
   // Le bouton "Ajouter" n'est actif que si le nom et le prix sont valides.
   peutAjouter = computed(
     () => this.nouveauNom().trim() !== '' && Number(this.nouveauPrix()) > 0,
   );
+
+  /** Appelé quand on clique sur "Ajouter au panier" dans le catalogue. */
+  ajouterProduit(produit: Produit) {
+    this.modifier((panier) => panier.ajouter({ ...produit, quantite: 1 }));
+  }
 
   ajouter() {
     if (!this.peutAjouter()) {
@@ -36,7 +40,7 @@ export class PanierComponent {
     }
 
     const produit: Produit = {
-      id: this.nextId++,
+      id: this.prochainId(),
       nom: this.nouveauNom().trim(),
       prix: Number(this.nouveauPrix()),
       quantite: Math.max(1, Math.floor(Number(this.nouvelleQuantite()) || 1)),
@@ -72,6 +76,11 @@ export class PanierComponent {
 
   formatPrix(valeur: number): string {
     return valeur.toFixed(2) + ' €';
+  }
+
+  /** Id libre pour un produit saisi à la main (évite les collisions avec le catalogue). */
+  private prochainId(): number {
+    return Math.max(0, ...this.panier().produits.map((p) => p.id)) + 1;
   }
 
   /** Applique une action sur une copie du panier puis met à jour le signal. */

@@ -1,0 +1,14 @@
+<section class="catalogue">
+  <h2>🛍️ Catalogue</h2>
+
+  <div class="grille">
+    @for (article of articles(); track article.id) {
+      <article class="carte">
+        <span class="emoji">{{ article.emoji }}</span>
+        <h3>{{ article.nom }}</h3>
+        <p class="prix">{{ formatPrix(article.prix) }}</p>
+        <button class="btn-ajouter" (click)="ajouter(article)">Ajouter au panier</button>
+      </article>
+    }
+  </div>
+</section>
