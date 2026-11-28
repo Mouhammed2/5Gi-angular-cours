@@ -1,15 +1,7 @@
-<app-header></app-header>
+<app-store-header [(panier)]="panier"></app-store-header>
 
 <main class="page">
-  <app-panier [(panier)]="panier"></app-panier>
-
-  <div class="corps">
-    <app-aside class="gauche"></app-aside>
-
-    <section class="droite">
-      <app-catalogue (ajouterAuPanier)="ajouterProduit($event)"></app-catalogue>
-    </section>
-  </div>
+  <app-store-body (ajouterAuPanier)="ajouterProduit($event)"></app-store-body>
 </main>
 
 <app-footer></app-footer>

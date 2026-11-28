@@ -22,14 +22,20 @@ describe('Store', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render header, panier, aside, catalogue and footer', () => {
+  it('should render the 3 main components: header, body, footer', () => {
     const el = fixture.nativeElement as HTMLElement;
 
-    expect(el.querySelector('app-header')).toBeTruthy();
-    expect(el.querySelector('app-panier')).toBeTruthy();
-    expect(el.querySelector('app-aside')).toBeTruthy();
-    expect(el.querySelector('app-catalogue')).toBeTruthy();
+    expect(el.querySelector('app-store-header')).toBeTruthy();
+    expect(el.querySelector('app-store-body')).toBeTruthy();
     expect(el.querySelector('app-footer')).toBeTruthy();
+  });
+
+  it('should render panier in header and catalogue in body', () => {
+    const el = fixture.nativeElement as HTMLElement;
+
+    expect(el.querySelector('app-store-header app-panier')).toBeTruthy();
+    expect(el.querySelector('app-store-body app-catalogue')).toBeTruthy();
+    expect(el.querySelector('app-store-body app-aside')).toBeTruthy();
   });
 
   it('should start with a 360 € cart', () => {

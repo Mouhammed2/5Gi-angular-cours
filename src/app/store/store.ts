@@ -1,21 +1,18 @@
 import { Component, signal } from '@angular/core';
-import { Header } from '../header/header';
+import { StoreHeader } from '../store-header/store-header';
+import { StoreBody } from '../store-body/store-body';
 import { Footer } from '../footer/footer';
-import { Aside } from '../aside/aside';
-import { Catalogue } from '../catalogue/catalogue';
-import { PanierComponent } from '../panier/panier';
 import { Panier, Produit } from '../models/panier';
 
 /**
- * Page /store :
- * header
- * panier
- * body (aside vide à gauche | catalogue à droite)
- * footer
+ * Page /store découpée en 3 composants :
+ * - header (contient le panier)
+ * - body   (aside vide à gauche, catalogue à droite)
+ * - footer
  */
 @Component({
   selector: 'app-store',
-  imports: [Header, Footer, Aside, Catalogue, PanierComponent],
+  imports: [StoreHeader, StoreBody, Footer],
   templateUrl: './store.html',
   styleUrl: './store.css',
 })
