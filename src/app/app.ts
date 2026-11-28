@@ -4,11 +4,12 @@ import { Home } from './home/home';
 import { About } from './about/about';
 import { Header } from './header/header';
 import { Task } from './task/task';
+import { PanierComponent } from './panier/panier';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,Home,About,Header,Task],
+  imports: [RouterOutlet, Home, About, Header, Task, PanierComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,0 +1,96 @@
+<section class="panier">
+  <h2>🛒 Mon panier</h2>
+
+  <div class="ajout">
+    <input
+      #nom
+      type="text"
+      placeholder="Nom du produit"
+      [value]="nouveauNom()"
+      (input)="nouveauNom.set(nom.value)"
+    />
+    <input
+      #prix
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="Prix (€)"
+      [value]="nouveauPrix()"
+      (input)="nouveauPrix.set(prix.value)"
+    />
+    <input
+      #qte
+      type="number"
+      min="1"
+      step="1"
+      placeholder="Qté"
+      [value]="nouvelleQuantite()"
+      (input)="nouvelleQuantite.set(qte.value)"
+    />
+    <button class="btn-ajouter" (click)="ajouter()" [disabled]="!peutAjouter()">
+      Ajouter
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Total ligne</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (produit of panier().produits; track produit.id) {
+        <tr>
+          <td class="nom">{{ produit.nom }}</td>
+          <td>{{ formatPrix(produit.prix) }}</td>
+          <td class="qte">
+            <button (click)="diminuer(produit.id)" title="Diminuer">−</button>
+            <span>{{ produit.quantite }}</span>
+            <button (click)="augmenter(produit.id)" title="Augmenter">+</button>
+          </td>
+          <td>{{ formatPrix(produit.prix * produit.quantite) }}</td>
+          <td>
+            <button class="btn-suppr" (click)="supprimer(produit.id)" title="Supprimer">
+              ✕
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="vide">Le panier est vide.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="resume">
+    <div>
+      <span>Produits différents</span>
+      <strong>{{ panier().nombreProduits() }}</strong>
+    </div>
+    <div>
+      <span>Articles</span>
+      <strong>{{ panier().nombreArticles() }}</strong>
+    </div>
+    <div>
+      <span>Prix moyen</span>
+      <strong>{{ formatPrix(panier().prixMoyen()) }}</strong>
+    </div>
+    <div>
+      <span>Plus cher</span>
+      <strong>{{ panier().produitLePlusCher()?.nom ?? '—' }}</strong>
+    </div>
+    <div class="total">
+      <span>Total à payer</span>
+      <strong>{{ formatPrix(panier().total()) }}</strong>
+    </div>
+  </div>
+
+  <button class="btn-vider" (click)="vider()" [disabled]="panier().estVide()">
+    Vider le panier
+  </button>
+</section>
